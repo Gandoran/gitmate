@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gitmate"
+version = "1.0.0"
+authors = [{name="Ubr Programmer", email="ubr@gmailington.com" }]
+description = "Client for my awesome system"
+readme = "README.md"
+dependencies = ["ollama"]
+requires-python = ">=3.9"
+
+[project.scripts]
+gitmate = "scribe.main:main"
+
+[project.urls]
+"Homepage" = "https://github.com/Gandoran/gitmate"

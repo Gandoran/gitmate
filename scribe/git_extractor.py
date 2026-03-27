@@ -29,6 +29,7 @@ def git_retrieve_current_branch():
     
 def git_push_commit():
     try:
-        subprocess.run(args=['git','push','origin',git_retrieve_current_branch()])
+        subprocess.run(args=['git','push','origin',git_retrieve_current_branch()],check=True)
+        return("Commit published correctly")
     except subprocess.CalledProcessError:
         return("Cannot push")

@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: gitmate
+Version: 1.0.0
+Summary: Client for my awesome system
+Author-email: Ubr Programmer <ubr@gmailington.com>
+Project-URL: Homepage, https://github.com/Gandoran/gitmate
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: ollama
