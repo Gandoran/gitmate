@@ -3,7 +3,7 @@ import sys
 
 def extract_changes():
     try:
-        result = subprocess.run(args=["git", "diff", "--staged"],check=True, capture_output=True, text=True)
+        result = subprocess.run(args=["git", "diff", "--staged"],check=True, capture_output=True, text=True, encoding="utf-8")
         return result.stdout
     except subprocess.CalledProcessError:
         return None
@@ -33,3 +33,10 @@ def git_push_commit():
         return("Commit published correctly")
     except subprocess.CalledProcessError:
         return("Cannot push")
+
+def git_reset():
+    try:
+        subprocess.run(args=['git','reset'],check=True)
+        return("Commit Reverted")
+    except subprocess.CalledProcessError:
+        return("error durring reversion")

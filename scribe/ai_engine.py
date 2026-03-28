@@ -9,5 +9,8 @@ def ollama_chat(system_istruction,git_changes):
     {
         'role': 'user',
         'content': git_changes
-    }])
+    }],options={
+        'num_ctx': 8192,
+        'num_predict': 2048
+    })
     return response['message']['content']
