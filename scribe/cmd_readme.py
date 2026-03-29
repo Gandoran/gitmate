@@ -1,18 +1,26 @@
-from scribe import folder_extractor, prompt_builder,istructions
-from scribe.template_manger import choose_and_add_template
-from scribe.ai_runner import execute_with_animation
+from scribe import folder_extractor, prompt_builder, istructions
+from scribe import template_manger
+from scribe import ai_runner
+from scribe import interaction_handler
 
 def execute(lan):
     text = folder_extractor.extract_project_text()
-    print(f"Token used by the text: %.1f" %(len(text)/4))
-    prompt_base = prompt_builder.build_prompt(istructions.REGOLE_README, lan)
-    prompt_finale = choose_and_add_template(text, prompt_base)
-    message = execute_with_animation(prompt_finale, text, "Writing the README.md")
-    print(f"\nREADME generated:\n\n{message}\n")
-    response = input("Do you want to save it as README.md? (Y/N): ")
-    if response.lower() == 'y':
-        with open("README.md", "w", encoding="utf-8") as f:
-            f.write(message)
-        return "README.md saved!"
-    else:
-        return "README discarded"
+    print(f"Tokens used by the text: {len(text)//4}")
+    base_prompt = prompt_builder.build_prompt(istructions.REGOLE_README, lan)
+    final_prompt = template_manger.add_template(text, base_prompt)
+    message = ai_runner.execute_with_animation(final_prompt, text, "Writing the README.md")
+    return interaction_handler.handle_interaction(
+        starting_message=message,
+        change_prompt_m="Modifica il seguente README rispettando questa richiesta:",
+        func_accept=save_readme,
+        func_refuse=undo_readme,
+        output_title="README Generated"
+    )
+
+def save_readme(msg):
+    with open("README.md", "w", encoding="utf-8") as f:
+        f.write(msg)
+    return "README.md saved!"
+
+def undo_readme():
+    return "README discarded"

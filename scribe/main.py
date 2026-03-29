@@ -1,5 +1,5 @@
 import sys
-from scribe import cmd_commit, cmd_readme
+from scribe import cmd_changelog, cmd_commit, cmd_readme
 
 def main():
     command = sys.argv
@@ -12,9 +12,10 @@ def main():
         message = cmd_commit.execute(lan)
     elif azione == "-readme":
         message = cmd_readme.execute(lan)
+    elif azione == "-changelog":
+        message = cmd_changelog.execute(lan)
     else:
         message = "Command not recognized, Try use: gitmate -<comando>. with the commands: commit, readm"
-        
     print(message)
 
 if __name__ == "__main__":

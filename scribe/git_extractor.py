@@ -39,3 +39,11 @@ def git_reset():
         return("Commit Reverted")
     except subprocess.CalledProcessError:
         return("error durring reversion")
+
+def git_extract_commits(n_commit=20):
+    try:
+        result = subprocess.run(args=['git', 'log', '--pretty=format:%h - %s', '-n', str(n_commit)],
+                                check=True,capture_output=True,text=True,encoding="utf-8")
+        return result.stdout.strip()
+    except subprocess.CalledProcessError:
+        return("error durring reversion")
