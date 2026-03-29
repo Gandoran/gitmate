@@ -1,31 +1,28 @@
 import os
+from scribe.token_reducer import file_clean
 
-FOLDER_IGNORE = ['.venv', '__pycache__', '.git', 'node_modules']
-EXTENSION_IGNORE = ('.exe', '.png', '.jpg', '.pdf', '.pyc')
+FOLDER_IGNORE = ['.venv', '__pycache__', '.git', 'node_modules', 'target', 'dist', 'build', '.next']
+FILE_IGNORE = ['package-lock.json', 'yarn.lock', 'Cargo.lock']
+EXTENSION_IGNORE = ('.exe', '.png', '.jpg', '.pdf', '.pyc','.md')
 
 def extract_project_text():
     complete_text = ""
-    gitignore_rule = []
-
+    gitignore_rule = set()
     for root, dirs, files in os.walk('.'):
-        dirs[:] = [d for d in dirs if d not in FOLDER_IGNORE and d not in gitignore_rule]
         if ".gitignore" in files:
             gitignore_route = os.path.join(root, ".gitignore")
             try:
                 with open(gitignore_route, "r", encoding="utf-8") as file_git:
                     for line in file_git:
-                        if line.strip() and not line.strip().startswith('#'):
-                            gitignore_rule.append(line.strip().rstrip('/'))
+                        riga_pulita = line.strip()
+                        if riga_pulita and not riga_pulita.startswith('#'):
+                            gitignore_rule.add(riga_pulita.rstrip('/'))
             except Exception:
                 pass
+        dirs[:] = [d for d in dirs if d not in FOLDER_IGNORE and d not in gitignore_rule]
         for file in files:
-            if file.endswith(EXTENSION_IGNORE) or file in gitignore_rule or file == ".gitignore":
+            if file.endswith(EXTENSION_IGNORE) or file in FILE_IGNORE or file in gitignore_rule or file == ".gitignore":
                 continue
             route = os.path.join(root, file)
-            try:
-                with open(route, "r", encoding="utf-8") as f:
-                    content = f.read()
-                    complete_text += f"\n--- FILE: {file} ---\n{content}\n"
-            except Exception:
-                pass
+            complete_text += file_clean(route)
     return complete_text
