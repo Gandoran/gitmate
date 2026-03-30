@@ -8,7 +8,7 @@ version = "1.0.0"
 authors = [{name="Ubr Programmer", email="ubr@gmailington.com" }]
 description = "Client for my awesome system"
 readme = "README.md"
-dependencies = ["ollama"]
+dependencies = ["ollama","pyyaml","rich"]
 requires-python = ">=3.9"
 
 [project.scripts]

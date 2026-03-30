@@ -1,8 +1,8 @@
 import sys
 import os
 import threading
-from scribe import ai_engine
-from scribe import loading_bar
+from scribe.ai_package import ai_engine
+from scribe.cmd import loading_bar
 
 def _wait_and_handle_errors(worker_thread, result_dict):
     try:
@@ -20,11 +20,11 @@ def _wait_and_handle_errors(worker_thread, result_dict):
         print(f"\n Unexpected error: {e}")
         sys.exit(1)
 
-def execute_with_animation(istruzioni, dati, testo_barra="I'm reasoning"):
+def execute_with_animation(istruzioni, dati, testo_barra="I'm reasoning", profile="light"):
     result = {"message": "", "error": None}
     def worker_ollama():
         try:
-            result["message"] = ai_engine.ollama_chat(istruzioni, dati)
+            result["message"] = ai_engine.ollama_chat(istruzioni, dati,profile)
         except Exception as e:
             result["error"] = e
     stop_event = threading.Event()

@@ -1,6 +1,7 @@
-from scribe import git_extractor, prompt_builder, istructions
-from scribe import ai_runner
-from scribe import interaction_handler
+from scribe.extractor import git_extractor
+from scribe.ai_package import ai_runner
+from scribe.cmd import interaction_handler
+from scribe.ai_package import istructions, prompt_builder
 
 def execute(lan):
     git_extractor.git_add()
@@ -8,7 +9,7 @@ def execute(lan):
     if not changes:
         return "Nothing added to the commit"       
     prompt = prompt_builder.build_prompt(istructions.REGOLE_COMMIT, lan)
-    message = ai_runner.execute_with_animation(prompt, changes, "Analysis of changes")
+    message = ai_runner.execute_with_animation(prompt, changes, "Analysis of changes",profile="light")
     return interaction_handler.handle_interaction(
         starting_message=message,
         change_prompt_m="Modifica il seguente messaggio di commit rispettando questa richiesta:",

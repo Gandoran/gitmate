@@ -1,13 +1,14 @@
-from scribe import git_extractor, istructions, prompt_builder
-from scribe import ai_runner
-from scribe import interaction_handler
+from scribe.extractor import git_extractor
+from scribe.ai_package import ai_runner
+from scribe.cmd import interaction_handler
+from scribe.ai_package import istructions, prompt_builder
 
 def execute(lan):
     text = git_extractor.git_extract_commits(20) 
     if not text or "error" in text:
         return "No commits found or errors in extraction."
     base_prompt = prompt_builder.build_prompt(istructions.REGOLE_CHANGELOG, lan)
-    message = ai_runner.execute_with_animation(base_prompt, text, "Writing the CHANGELOG.md")
+    message = ai_runner.execute_with_animation(base_prompt, text, "Writing the CHANGELOG.md", profile="heavy")
     return interaction_handler.handle_interaction(
         starting_message=message,
         change_prompt_m="Modifica questo changelog rispettando la richiesta:",

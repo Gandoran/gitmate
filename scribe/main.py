@@ -1,5 +1,5 @@
 import sys
-from scribe import cmd_changelog, cmd_commit, cmd_readme
+from scribe.cmd import cmd_changelog, cmd_commit, cmd_readme
 
 def main():
     command = sys.argv
