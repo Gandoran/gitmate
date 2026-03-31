@@ -22,6 +22,7 @@ REGOLE FERREE:
    - 🛠 **Altre Modifiche** (Aggiornamenti dipendenze, docs, ecc.)
 3. Riscrivi i messaggi di commit in un linguaggio più discorsivo e chiaro se sono troppo telegrafici.
 4. Mantieni l'hash del commit (es. a1b2c3d) tra parentesi alla fine di ogni riga.
+5. Se non ci sono commit pertinenti per una determinata categoria (es. non ci sono bug corretti), OMETTI e CANCELLA completamente quell'intestazione Markdown. Non lasciare mai sezioni vuote e non riempirle con dati finti.
 
 ESEMPIO DI FORMATO:
 # Changelog
