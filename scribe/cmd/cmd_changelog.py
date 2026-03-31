@@ -1,4 +1,4 @@
-from scribe.extractor import git_extractor
+from scribe.git import git_extractor
 from scribe.ai_package import ai_runner
 from scribe.cmd import interaction_handler
 from scribe.ai_package import istructions, prompt_builder

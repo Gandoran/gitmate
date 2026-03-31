@@ -1,52 +1,133 @@
-# Gitmate
+# GitMate
 
 ## 📖 Descrizione Dettagliata
-Gitmate è un client per il sistema di codice AI "ollama", utilizzato per automatizzare processi di commit e gestione del codice. Il software permette agli sviluppatori di creare, modificare e inviare modifiche al loro repository Git in modo più efficiente, utilizzando l'intelligenza artificiale per migliorare la qualità delle code review.
+GitMate è un client per un sistema di gestione di progetti che si integra con sistemi di controllo versione come Git e offre funzionalità avanzate per l'analisi, generazione e gestione del codice. Il software risolve il problema di automatisare i processi di commit, gestione dei cambiamenti, creazione di documentazioni e release, fornendo un'interfaccia più fluida e efficiente per gli sviluppatori.
 
-Il caso d'uso principale di Gitmate è nella collaborazione di team di sviluppo software, dove gli ingegneri possono concentrarsi sul codice piuttosto che sull'amministrazione del repository. Gitmate automatizza processi come l'estrazione delle modifiche, la creazione di commit e la gestione delle code review utilizzando l'intelligenza artificiale per migliorare la qualità delle modifiche.
+Il suo caso d'uso principale è nella gestione del flusso di lavoro quotidiano degli sviluppatori, permettendogli di concentrarsi sul codice piuttosto che sulla routine delle operazioni di controllo versione. GitMate si integra con altri strumenti come Ollama (un assistente AI), YAML per la gestione della configurazione e Rich per l'output formattato.
 
 ## 🚀 Funzionalità Principali
-Gitmate offre diverse funzionalità chiave per migliorare la productivity dei team:
+### 1. Gestione dei Commit
+- **Commit**: permette di creare commit automatizzati basati sui cambiamenti del progetto.
 
-- **Estrazione delle modifiche**: Gitmate può estrarre automaticamente le modifiche dal repository Git, prepararle per il commit e utilizzare l'intelligenza artificiale per analizzarle.
-  
-- **Creazione di commit**: Una volta estratte, le modifiche vengono utilizzate per creare commit automatici, migliorando la velocità e la consistenza dei commit.
+### 2. Generazione e Modifica della Documentazione
+- **README Management**: gestisce la creazione, modifica e salvataggio della documentazione README per i progetti.
+- **Changelog Management**: gestisce la creazione, modifica e salvataggio del changelog dei progetti.
+- **Release Management**: gestisce la preparazione e pubblicazione di release di progetti.
 
-- **Gestione delle code review**: Gitmate può integrarsi con il sistema di codice AI "ollama" per gestire le code review, offrendo suggerimenti basati sull'intelligenza artificiale per migliorare la qualità delle modifiche.
+### 3. Analisi e Generazione di Codice
+- **AI Engine**: utilizza un assistente AI per analizzare i cambiamenti del codice e generare documentazioni e commit intelligenti.
+- **Prompt Builder**: genera prompt personalizzati per l'assistente AI basati sulle regole del progetto e sui cambiamenti.
 
-- **Animazioni durante l'esecuzione dei comandi**: Gitmate offre un'esperienza utente migliorata attraverso l'utilizzo di animazioni visive durante l'esecuzione dei comandi, rendendo l'interazione con il software più fluida e accattivante.
+### 4. Estrazione di Informazioni
+- **Folder Extractor**: estrae il testo dai file all'interno di una cartella specifica.
+- **Gitignore Parser**: analizza i file `.gitignore` per determinare quali file o directory dovrebbero essere ignorati dal controllo versione.
+- **Tree Generator**: genera la struttura del progetto come un albero.
+
+### 5. Integrazione con Git
+- **Git Extractor**: estrae le modifiche recenti dal repository di Git.
+- **Push e Pull**: permette di inviare i commit al repository remoto e recuperare gli aggiornamenti più recenti.
 
 ## 🛠️ Architettura e Tecnologie
-Gitmate è composto da diverse parti, ognuna sviluppata in un linguaggio di programmazione diverso per raggiungere il miglioramento delle prestazioni e della funzionalità. L'architettura del software è basata su una struttura modulare che include:
+### Linguaggi e Framework Utilizzati
+- **Python 3.9+**
+- **Ollama**: un assistente AI utilizzato per l'analisi e generazione di codice.
+- **PyYAML**: per la gestione della configurazione in formato YAML.
+- **Rich**: per l'output formattato.
 
-- **Backend Python**: Il backend di Gitmate è scritto in Python, utilizzando la libreria `setuptools` per la gestione della compilazione e l'esecuzione.
+### Moduli e Struttura del Progetto
+Il progetto è strutturato in diverse directory, ciascuna responsabile di un aspetto specifico dell'applicazione. La comunicazione tra i moduli avviene principalmente attraverso funzioni esposte.
 
-- **Intelligenza Artificiale Ollama**: L'intelligenza artificiale utilizzata da Gitmate per migliorare la qualità delle code review è sviluppata e ospitata dal sistema "ollama".
+- **`cmd/`**: Contiene comandi per la gestione del progetto, come commit, release e documentazione.
+  - `cmd_commit.py`: Gestisce il comando di commit.
+  - `cmd_release.py`: Gestisce il comando di release.
+  - `cmd_readme.py`: Gestisce il comando di gestione della documentazione README.
+
+- **`ai_package/`**: Contiene l'engine AI per l'analisi e generazione di codice.
+  - `ai_engine.py`: Carica la configurazione e invia messaggi all'assistente AI.
+  - `token_reducer.py`: Riduce i token nei file per una gestione più efficiente.
+
+- **`extractor/`**: Estrae informazioni dai progetti.
+  - `folder_extractor.py`: Estrae il testo da una cartella.
+  - `gitignore_parser.py`: Analizza i file `.gitignore`.
+
+- **`git/`**: Contiene funzioni per l'interazione con Git.
+  - `git_extractor.py`: Estrae modifiche e commit dal repository di Git.
 
 ## 🧩 Moduli e Componenti Core
-Gitmate è composto da vari moduli principali che si interagiscono tra loro per raggiungere il suo scopo. Ecco una descrizione dettagliata di ciascuno di questi componenti:
+### 1. `ai_package.ai_engine`
+Questo modulo contiene la logica principale per l'interfacciamento con l'assistente AI. Ha funzioni per caricare la configurazione e inviare messaggi all'assistente.
+- **`load_config()`**: Carica la configurazione dell'assistente AI.
+- **`ollama_chat(system_istruction, git_changes, profile="light")`**: Invia una richiesta all'assistente AI per ottenere una risposta basata sui cambiamenti del progetto.
 
-- **ai_engine.py**: Questo modulo contiene la funzione `ollama_chat`, utilizzata per inviare richieste al sistema AI "ollama" e ricevere risposte basate sulla logica del sistema.
+### 2. `cmd.cmd_commit`
+Gestisce il comando di gestione del commit.
+- **`execute(lan)`**: Esegue il comando di generazione del commit.
+- **`save_commit(msg)`**: Pubblica la versione modificata del changelog.
+- **`undo_commit()`**: Annulla l'ultima commit creato.
 
-- **ai_runner.py**: Il modulo `ai_runner.py` include la funzione `execute_with_animation`, che esegue una serie di comandi, visualizzando un'animazione durante l'esecuzione per migliorare l'esperienza dell'utente.
+### 3. `git.git_extractor`
+Contiene funzioni per l'estrazione di informazioni dai repository Git.
+- **`extract_changes()`**: Estrae le modifiche recenti dal repository.
+- **`git_commit(message)`**: Fa un commit sul repository con il messaggio fornito.
 
-- **cmd_commit.py** e **cmd_readme.py**: Questi moduli contengono le funzioni `execute`, utilizzate per eseguire specifiche operazioni come la creazione di commit e l'aggiornamento del README, rispettivamente.
+### 4. `extractor.folder_extractor`
+Estrae il testo dai file all'interno di una cartella specifica.
+- **`extract_project_text(root_path=".")`**: Estrae il testo da tutti i file in una cartella e le sue sottocartelle.
 
-- **folder_extractor.py** e **git_extractor.py**: I moduli `folder_extractor.py` e `git_extractor.py` contengono funzioni per estrarre informazioni dai repository Git, come le modifiche apportate, i file modificati e altre informazioni utili per il processo di commit.
-
-- **istructions.py**, **loading_bar.py** e **prompt_builder.py**: Questi moduli gestiscono aspetti specifici della logica del programma, inclusa la creazione di prompt per l'interfaccia utente, la gestione dell'animazione di caricamento durante i processi di esecuzione e la costruzione di prompt basati su regole predefinite.
-
-- **template_manger.py** e **token_reducer.py**: I moduli `template_manger.py` e `token_reducer.py` si occupano della gestione delle templatizzazioni del codice e della riduzione dei token, rispettivamente, per migliorare la qualità delle modifiche e la produttività del software.
+### 5. `cmd.cmd_readme`
+Gestisce il comando di gestione della documentazione README.
+- **`execute(lan)`**: Esegue il comando di generazione o modifica del README.
+- **`save_readme(msg)`**: Salva la versione modificata del README.
 
 ## 💻 Installazione e Avvio
-Per installare Gitmate, eseguire il comando seguente:
+Per installare GitMate, è necessario eseguire i seguenti passaggi:
+1. Clonare il repository:
+   ```bash
+   git clone https://github.com/Gandoran/gitmate.git
+   ```
+2. Creare un ambiente virtuale (opzionale ma raccomandato):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # su Windows usa `venv\Scripts\activate`
+   ```
+3. Installare le dipendenze:
+   ```bash
+   pip install -e .
+   ```
+4. Eseguire GitMate:
+   ```bash
+   gitmate
+   ```
 
-```bash
-pip install -e .
+## Project Structure:
+```text
+gitmate/
+├── scribe
+│   ├── ai_package
+│   │   ├── ai_engine.py
+│   │   ├── ai_runner.py
+│   │   ├── istructions.py
+│   │   ├── prompt_builder.py
+│   │   ├── template_manger.py
+│   │   └── token_reducer.py
+│   ├── cmd
+│   │   ├── cmd_changelog.py
+│   │   ├── cmd_commit.py
+│   │   ├── cmd_readme.py
+│   │   ├── cmd_release.py
+│   │   ├── interaction_handler.py
+│   │   └── loading_bar.py
+│   ├── extractor
+│   │   ├── folder_extractor.py
+│   │   ├── gitignore_parser.py
+│   │   └── tree_generator.py
+│   ├── git
+│   │   └── git_extractor.py
+│   ├── template
+│   ├── __init__.py
+│   ├── create_global_configuration.py
+│   └── main.py
+└── pyproject.toml
 ```
 
-Successivamente, si può avviare l'applicazione tramite il comando:
-
-```bash
-gitmate -<command> -<lan>
-```
+Questo README fornisce un'introduzione dettagliata al progetto GitMate, inclusa la sua architettura e i principali componenti utilizzati.

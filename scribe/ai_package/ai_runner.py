@@ -1,5 +1,4 @@
 import sys
-import os
 import threading
 from scribe.ai_package import ai_engine
 from scribe.cmd import loading_bar
@@ -10,9 +9,6 @@ def _wait_and_handle_errors(worker_thread, result_dict):
             worker_thread.join(0.1)             
         if result_dict["error"]:
             raise result_dict["error"]
-    except KeyboardInterrupt:
-        print("\n\n Operation aborted by the user.")
-        os._exit(0) 
     except ConnectionError:
         print("\n Error: cannot connect to ollama. Make sure the Ollama app is open and running on your PC.")
         sys.exit(1)

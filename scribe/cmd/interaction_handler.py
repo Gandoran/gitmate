@@ -21,7 +21,7 @@ def handle_interaction(starting_message, change_prompt_m, func_accept, func_refu
                 f"Restituisci SOLO il testo formattato, senza altre frasi.\n\n"
                 f"TESTO ORIGINALE:\n{message}"
             )
-            message = ai_runner.execute_with_animation(prompt_modifica, "", "Applicazione modifiche...")
+            message = ai_runner.execute_with_animation(prompt_modifica, "", "applying changes...")
         else:
             print("Not a valid choice, please enter: Y, N, or M.")
 

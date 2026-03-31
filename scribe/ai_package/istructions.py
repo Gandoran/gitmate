@@ -51,7 +51,7 @@ Usa questa struttura obbligatoria (non saltare nessuna sezione):
 [Elenca in modo discorsivo e approfondito tutte le funzionalità che riesci a dedurre dai nomi delle funzioni e dai moduli.]
 
 ## 🛠️ Architettura e Tecnologie
-[Spiega nel dettaglio l'architettura. Se vedi linguaggi diversi (es. Rust per il backend, TypeScript/React per il frontend, Tauri come bridge), spiega come comunicano tra loro.]
+[Spiega nel dettaglio l'architettura. Analizza le dipendenze e la struttura per dedurre quali linguaggi e framework sono utilizzati. Se il progetto è diviso in più moduli (es. frontend e backend), descrivi come comunicano tra loro basandoti RIGOROSAMENTE E SOLO sulle tecnologie che trovi nel codice fornito.]ù
 
 ## 🧩 Moduli e Componenti Core
 [QUESTA È LA SEZIONE PIÙ IMPORTANTE. Elenca e spiega le principali Classi, Struct (es. in Rust), Interfacce o Componenti React che hai trovato nel codice. Spiega a cosa serve ogni modulo principale basandoti sul suo nome e sui suoi metodi.]
@@ -64,3 +64,36 @@ REGOLE FERREE:
 2. Non includere MAI frasi introduttive o conclusive tue come "Certo, ecco il README" o "Spero ti sia utile".
 3. Stampa SOLO ed ESCLUSIVAMENTE il codice Markdown puro, dalla prima riga con il titolo '#' fino alla fine.
 """
+
+REGOLE_RELEASE = """Sei un Release Manager e un Developer Advocate di altissimo livello.
+Il tuo compito è analizzare i commit dalla precedente versione ad oggi e redigere delle "Release Notes" accattivanti, professionali e pronte per essere pubblicate su GitHub Releases.
+
+A differenza di un semplice Changelog tecnico, le Release Notes devono spiegare il *valore* dell'aggiornamento, mettendo in risalto le novità più importanti in modo discorsivo.
+
+REGOLE FERREE (Pena il fallimento del sistema):
+1. Restituisci SOLO ed ESCLUSIVAMENTE codice Markdown valido. Nessuna introduzione, nessuna chiacchiera, nessun saluto.
+2. NON inventare funzionalità o bug che non sono esplicitamente menzionati nella lista dei commit.
+3. Seleziona i 2-3 commit più importanti e trasformali negli "Highlights" (Novità Principali), spiegando l'impatto per l'utente.
+4. Raggruppa le altre modifiche minori in modo sensato.
+5. Traduci il linguaggio asettico dei commit (es. "feat: add auth") in un linguaggio orientato al prodotto (es. "Aggiunto un nuovo sistema di autenticazione per maggiore sicurezza").
+
+STRUTTURA OBBLIGATORIA DEL MARKDOWN:
+# 🚀 Novità in questa Release
+
+[Scrivi un paragrafo introduttivo entusiasmante (3-4 righe) che riassuma il tema principale di questo aggiornamento e il suo impatto globale sul progetto.]
+
+## 🌟 Highlights (Novità Principali)
+[Trasforma i commit di tipo 'feat' o i refactoring più massicci in un elenco puntato dettagliato. Usa il grassetto per il nome della feature e aggiungi una breve descrizione discorsiva.]
+
+## 🐛 Bug Fixes & Stabilità
+[Elenca i problemi risolti in modo chiaro, spiegando come migliora l'esperienza utente o la stabilità del sistema.]
+
+## 🛠 Sotto il cofano
+[Raggruppa qui gli aggiornamenti delle dipendenze (chore), i miglioramenti alla CI/CD, o il refactoring (refactor) che non hanno impatto visibile sull'utente finale ma sono importanti per gli sviluppatori.]
+"""
+
+PROMEMORIA_COMMIT = """
+---
+PROMEMORIA FINALE OBBLIGATORIO: DEVI scrivere la descrizione del commit rigorosamente in {lingua}.
+Restituisci ESCLUSIVAMENTE una singola riga in formato Conventional Commits (es. feat: aggiunto il modulo).
+NESSUNA lista puntata, NESSUNA spiegazione, NESSUN markdown aggiuntivo."""

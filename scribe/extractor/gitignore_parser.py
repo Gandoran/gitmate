@@ -1,7 +1,7 @@
 import os
 
 FOLDER_IGNORE = {'.venv', '__pycache__', '.git', 'node_modules', 'target', 'dist', 'build', '.next'}
-FILE_IGNORE = {'package-lock.json', 'yarn.lock', 'Cargo.lock'}
+FILE_IGNORE = {'package-lock.json', 'yarn.lock', 'Cargo.lock','.gitattributes'}
 EXTENSION_IGNORE = ('.exe', '.png', '.jpg', '.pdf', '.pyc', '.md')
 
 def load_gitignore_rules(root_path="."):
