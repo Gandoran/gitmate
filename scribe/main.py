@@ -14,7 +14,7 @@ def execute_commands():
         message = cmd_readme.execute(lan)
     elif azione == "-changelog":
         message = cmd_changelog.execute(lan)
-    elif message == "-release":
+    elif azione == "-release":
         message = cmd_release.execute(lan)
     else:
         message = "Command not recognized, Try use: gitmate -<comando>. with the commands: commit, readm"
